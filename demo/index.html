@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Custom Share Buttons Demo</title>
+    <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="share-items">
+        	<strong>SHARE THIS ARTICLE</strong>
+        	<ul id="share-links">
+        		<li>
+        			<a class="twitterBtn" data-dir="left" href="" >
+            			<span>Twitter</span>
+            			<span class="twitter-count">0</span>
+                    </a>
+        		</li>
+        		<li>
+        			<a class="facebookBtn" href="">
+            			<span>Facebook</span>
+            			<span class="facebook-count">0</span>
+                    </a>
+        		</li>
+        		<li>
+        			<a class="linkedinBtn" href="">
+            			<span>LinkedIn</span>
+            			<span class="linkedin-count">0</span>
+                    </a>
+        		</li>
+        		<li>
+        			<a class="googleBtn" href="">
+            			<span>Google</span>
+            			<span class="google-count">0</span>
+                    </a>
+        		</li>
+        
+        	</ul>
+        </div>
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+        <script src="customShareCounts.js"></script>
+	<script>
+		$('#share-links').customShareCount({
+			// the twitter username you want to append to your share, leave blank for none;
+			twitterUsername: 'your-username'
+		});
+	</script>
+    </body>
+</html>
