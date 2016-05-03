@@ -3,8 +3,10 @@
 	var $thisUrl = $(location).attr('href');
 
 	$.fn.customShareCount = function( options ) {
-		var socialCounts,
+		var socialServices,
 			totalCount = {},
+			totalTime,
+			ajaxTime= new Date().getTime(),
 			$thisTitle = $(document).find('title').text(),
 			settings = $.extend({}, $.fn.customShareCount.defaults, options);
 
@@ -18,22 +20,25 @@
 					url: settings.pageUrl
 				},
 				success: function (data){
+
 					callback(data);
 				}
 			});
 		}
 
-		socialCounts = {
+		socialServices = {
 			facebook: {
 				jsonUrl: 'http://graph.facebook.com/?id=' + settings.pageUrl,
 				shareUrl: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(settings.pageUrl),
 				loadLink: function () {
 					$('.facebookBtn').attr('href', this.shareUrl);
 				},
-				getCountAddLink: function () {
+				getCount: function () {
 					loadCounts(this.jsonUrl, 'jsonp', function (data) {
 						$('.facebook-count').text(data.shares);
-						totalCount.facebook = data.shares;
+						if (settings.showTotal === true) {
+							totalCount.facebook = Number(data.shares);
+						}
 					});
 				}
 			},
@@ -43,10 +48,12 @@
 				loadLink: function () {
 					$('.linkedinBtn').attr('href', this.shareUrl);
 				},
-				getCountAddLink: function () {
+				getCount: function () {
 					loadCounts(this.jsonUrl, 'jsonp', function (data) {
 						$('.linkedin-count').text(data.count);
-						totalCount.linkedin = data.count;
+						totalCount.linkedin = Number(data.count);
+						totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
+						console.log(Number(totalCount.total));
 					});
 				}
 			},
@@ -56,11 +63,12 @@
 				loadLink: function () {
 					$('.googleBtn').attr('href', this.shareUrl);
 				},
-				getCountAddLink: function () {
+				getCount: function () {
 					loadCounts(this.jsonUrl, 'jsonp', function (data) {
 						$('.google-count').text(data.shares.google);
-						totalCount.google = data.shares.google;
-						console.log(totalCount);
+						totalCount.google = Number(data.shares.google);
+						totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
+						console.log(Number(totalCount.total));
 					});
 				}
 			},
@@ -70,58 +78,61 @@
 				loadLink: function () {
 					$('.twitterBtn').attr('href', this.shareUrl);
 				},
-				getCountAddLink: function () {
-					return loadCounts(this.jsonUrl, 'json', function (data) {
+				getCount: function () {
+					loadCounts(this.jsonUrl, 'json', function (data) {
 						$('.twitter-count').text(data.count);
-						totalCount.twitter = data.count;
-
-
+						totalCount.twitter = Number(data.count);
+						totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
+						console.log(Number(totalCount.total));
 					});
 				}
 			},
-			execute: function() {
-				// load counts
-				if (settings.showAllCount === true && settings.facebookCount === true) {
-					this.facebook.getCountAddLink();
-				} else {
-					$('facebook-count').text('');
-				}
-
-				if (settings.showAllCount === true && settings.linkedinCount === true) {
-					this.linkedIn.getCountAddLink();
-				} else {
-					$('linkedim-count').text('');
-				}
-
-				if (settings.showAllCount === true && settings.googlePlusCount === true) {
-					this.googlePlus.getCountAddLink();
-				} else {
-					$('google-count').text('');
-				}
-				if (settings.showAllCount === true && settings.twitterCount === true) {
-					this.twitter.getCountAddLink();
-				} else {
-					$('twitter-count').text('');
-				}
-
-				// load links {
-				if (settings.facebookLoad === true) {
-					this.facebook.loadLink();
-				}
-				if (settings.linkedinLoad === true) {
-					this.linkedIn.loadLink();
-				}
-				if (settings.googlePlusLoad === true) {
-					this.googlePlus.loadLink();
-				}
-				if (settings.twitterLoad === true) {
-					this.twitter.loadLink();
-				}
+			total: function () {
+				$( document ).ajaxComplete(function() {
+					totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
+					totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
+				});
 			}
 		};
 
-		socialCounts.execute();
 
+		this.each(function(){
+			var links = ($(this).find('a'));
+			if (links.hasClass('twitterBtn')) {
+				socialServices.twitter.loadLink();
+
+				if (settings.showCounts === true) {
+					socialServices.twitter.getCount();
+				} else {
+					$('.twitter-count').text('');
+				}
+			}
+			if (links.hasClass('facebookBtn')) {
+				socialServices.facebook.loadLink();
+				if (settings.showCounts === true) {
+					socialServices.facebook.getCount();
+				} else {
+					$('.facebook-count').text('');
+				}
+			}
+			if (links.hasClass('linkedinBtn')) {
+				socialServices.linkedIn.loadLink();
+				if (settings.showCounts === true) {
+					socialServices.linkedIn.getCount();
+				} else {
+					$('.linkedin-count').text('');
+				}
+			}
+			if (links.hasClass('googleBtn')) {
+				socialServices.googlePlus.loadLink();
+				if (settings.showCounts === true) {
+					socialServices.googlePlus.getCount();
+				} else {
+					$('.google-count').text('');
+				}
+			}
+		});
+	
 		this.on('click', 'a', function () {
 			window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 			return false;
@@ -134,16 +145,10 @@
 	$.fn.customShareCount.defaults = {
 		// set true or false to toggle the counts & API calls
 		// in order to get twitter counts you must sign up for a free account @ https://opensharecount.com/
-		facebookCount: true,
-		facebookLoad: true,
-		linkedinCount: true,
-		linkedinLoad: true,
-		googlePlusCount: true,
-		googlePlusLoad: true,
-		twitterCount: true,
-		twitterLoad: true,
+
 		twitterUsername: '',
-		showAllCount: true,
+		showCounts: true,
+		showTotal: true,
 
 		// set the page url you want to get the counts from
 		pageUrl:  $thisUrl
