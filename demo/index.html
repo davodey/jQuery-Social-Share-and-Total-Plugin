@@ -9,8 +9,11 @@
     </head>
     <body>
         <div class="share-items">
+			<h1>Blog 1</h1>
+			<p>asdfasfasfasdf</p>
+			<a class="share-this" href="http://www.facebook.com">blog 1</a>
         	<strong>SHARE THIS ARTICLE</strong>
-        	<ul id="share-links">
+        	<ul class="share-links">
         		<li>
         			<a class="twitterBtn" data-dir="left" href="" >
             			<span>Twitter</span>
@@ -41,14 +44,50 @@
 				</li>
         	</ul>
         </div>
+		<div class="share-items">
+			<h1>Blog 2</h1>
+			<p>asdfasfasfasdf</p>
+			<a class="share-this" href="http://www.google.com">blog 2</a>
+			<strong>SHARE THIS ARTICLE</strong>
+			<ul class="share-links">
+				<li>
+					<a class="twitterBtn" data-dir="left" href="" >
+						<span>Twitter</span>
+						<span class="twitter-count"></span>
+					</a>
+				</li>
+				<li>
+					<a class="facebookBtn" href="">
+						<span>Facebook</span>
+						<span class="facebook-count"></span>
+					</a>
+				</li>
+				<li>
+					<a class="linkedinBtn" href="">
+						<span>LinkedIn</span>
+						<span class="linkedin-count"></span>
+					</a>
+				</li>
+				<li>
+					<a class="googleBtn" href="">
+						<span>Google</span>
+						<span class="google-count"></span>
+					</a>
+				</li>
+				<li>
+					<span>Total</span>
+					<span class="total-count"></span>
+				</li>
+			</ul>
+		</div>
         <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
         <script src="customShareCounts.js"></script>
 		<script>
-			$('#share-links').customShareCount({
-				// the twitter username you want to append to your share, leave blank for none;
-				twitterUsername: 'davodey',
-				pageUrl: 'http://www.google.com'
-			});
+				$('.share-items').customShareCount({
+					// the twitter username you want to append to your share, leave blank for none;
+					twitterUsername: 'davodey',
+					pageUrl: 'http://www.facebook.com'
+				});
 		</script>
     </body>
 </html>

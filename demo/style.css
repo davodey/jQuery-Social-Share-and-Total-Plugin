@@ -15,8 +15,18 @@ a {
     color:black;
     text-decoration: none;
     background:#efefef;
+    display:inline-block;
 }
 
 a:hover {
     background:#D8D8D8
+}
+
+strong {
+    display:block;
+    margin:25px;
+}
+
+.share-items {
+    padding:50px;
 }

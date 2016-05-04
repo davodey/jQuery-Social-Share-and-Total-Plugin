@@ -3,12 +3,18 @@
 	var $thisUrl = $(location).attr('href');
 
 	$.fn.customShareCount = function( options ) {
-		var socialServices,
-			totalCount = {},
-			totalTime,
-			ajaxTime= new Date().getTime(),
-			$thisTitle = $(document).find('title').text(),
+		var totalCount = 0,
+			$numInstances = $(this).length,
+			$totalCount = $(this).find('.total-count'),
+			$twitterCount = $(this).find('.twitter-count'),
+			$facebookCount = $(this).find('.facebook-count'),
+			$linkedinCount = $(this).find('.linkedin-count'),
+			$googleCount = $(this).find('.google-count'),
 			settings = $.extend({}, $.fn.customShareCount.defaults, options);
+
+		function kFormatter(num) {
+			return num > 999 ? (num/1000).toFixed(1) + 'k' : num;
+		}
 
 		function loadCounts(url, type, callback) {
 			$.ajax({
@@ -20,126 +26,82 @@
 					url: settings.pageUrl
 				},
 				success: function (data){
-
 					callback(data);
 				}
 			});
 		}
 
-		socialServices = {
-			facebook: {
-				jsonUrl: 'http://graph.facebook.com/?id=' + settings.pageUrl,
-				shareUrl: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(settings.pageUrl),
-				loadLink: function () {
-					$('.facebookBtn').attr('href', this.shareUrl);
-				},
-				getCount: function () {
-					loadCounts(this.jsonUrl, 'jsonp', function (data) {
-						$('.facebook-count').text(data.shares);
-						if (settings.showTotal === true) {
-							totalCount.facebook = Number(data.shares);
-						}
-					});
-				}
-			},
-			linkedIn: {
-				jsonUrl: 'https://www.linkedin.com/countserv/count/share?url=' + settings.pageUrl,
-				shareUrl: 'http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(settings.pageUrl),
-				loadLink: function () {
-					$('.linkedinBtn').attr('href', this.shareUrl);
-				},
-				getCount: function () {
-					loadCounts(this.jsonUrl, 'jsonp', function (data) {
-						$('.linkedin-count').text(data.count);
-						totalCount.linkedin = Number(data.count);
-						totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
-						console.log(Number(totalCount.total));
-					});
-				}
-			},
-			googlePlus: {
-				jsonUrl: 'https://count.donreach.com/',
-				shareUrl: 'https://plus.google.com/share?url=' + encodeURIComponent(settings.pageUrl),
-				loadLink: function () {
-					$('.googleBtn').attr('href', this.shareUrl);
-				},
-				getCount: function () {
-					loadCounts(this.jsonUrl, 'jsonp', function (data) {
-						$('.google-count').text(data.shares.google);
-						totalCount.google = Number(data.shares.google);
-						totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
-						console.log(Number(totalCount.total));
-					});
-				}
-			},
-			twitter: {
-				jsonUrl: 'http://opensharecount.com/count.json?url=' + settings.pageUrl,
-				shareUrl: 'http://twitter.com/intent/tweet?text='+ $thisTitle + '&amp;via=' + settings.twitterUsername,
-				loadLink: function () {
-					$('.twitterBtn').attr('href', this.shareUrl);
-				},
-				getCount: function () {
-					loadCounts(this.jsonUrl, 'json', function (data) {
-						$('.twitter-count').text(data.count);
-						totalCount.twitter = Number(data.count);
-						totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
-						console.log(Number(totalCount.total));
-					});
-				}
-			},
-			total: function () {
-				$( document ).ajaxComplete(function() {
-					totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
-					totalCount.total = totalCount.facebook + totalCount.linkedin + totalCount.twitter;
-				});
+		function showTotal(value) {
+			if (settings.showTotal === true && isNaN(null) !== true) {
+				totalCount += value;
+			} else {
+				$totalCount.remove();
 			}
-		};
+			$totalCount.text(kFormatter(totalCount / $numInstances));
+		}
 
+		function showCount (target, value) {
+			if (settings.showCounts === true) {
+				target.text(kFormatter(value));
+			} else {
+				target.remove();
+			}
+		}
 
-		this.each(function(){
-			var links = ($(this).find('a'));
-			if (links.hasClass('twitterBtn')) {
-				socialServices.twitter.loadLink();
-
-				if (settings.showCounts === true) {
-					socialServices.twitter.getCount();
-				} else {
-					$('.twitter-count').text('');
-				}
-			}
-			if (links.hasClass('facebookBtn')) {
-				socialServices.facebook.loadLink();
-				if (settings.showCounts === true) {
-					socialServices.facebook.getCount();
-				} else {
-					$('.facebook-count').text('');
-				}
-			}
-			if (links.hasClass('linkedinBtn')) {
-				socialServices.linkedIn.loadLink();
-				if (settings.showCounts === true) {
-					socialServices.linkedIn.getCount();
-				} else {
-					$('.linkedin-count').text('');
-				}
-			}
-			if (links.hasClass('googleBtn')) {
-				socialServices.googlePlus.loadLink();
-				if (settings.showCounts === true) {
-					socialServices.googlePlus.getCount();
-				} else {
-					$('.google-count').text('');
-				}
-			}
-		});
-	
 		this.on('click', 'a', function () {
 			window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 			return false;
 		});
 
-		return this;
+		return this.each(function(){
 
+			var links = $(this).find('a'),
+				$thisTitle = $(document).find('title').text(),
+				twitterLoadUrl = 'http://twitter.com/intent/tweet?text='+ $thisTitle + '&amp;via=' + settings.twitterUsername,
+				twitterJsonUrl = 'http://opensharecount.com/count.json?url=' + settings.pageUrl,
+				facebookLoadUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(settings.pageUrl),
+				facebookJsonUrl = 'http://graph.facebook.com/?id=' + settings.pageUrl,
+				linkedInLoadUrl = 'http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(settings.pageUrl),
+				linkedInJsonUrl = 'https://www.linkedin.com/countserv/count/share?url=' + settings.pageUrl,
+				googlePlusLoadUrl = 'https://plus.google.com/share?url=' + encodeURIComponent(settings.pageUrl),
+				googlePlusJsonUrl = 'https://count.donreach.com/';
+
+			if (settings.singlePage === true) {
+
+				if (links.hasClass('twitterBtn')) {
+					$(this).find('a.twitterBtn').attr('href', twitterLoadUrl);
+					loadCounts(twitterJsonUrl, 'json', function (data) {
+						showCount($twitterCount, data.count);
+						showTotal(data.count);
+					});
+
+				}
+				if (links.hasClass('facebookBtn')) {
+					$(this).find('a.facebookBtn').attr('href', facebookLoadUrl);
+					loadCounts(facebookJsonUrl, 'jsonp', function (data) {
+						showCount($facebookCount, data.shares);
+						showTotal(data.shares);
+					});
+
+				}
+				if (links.hasClass('linkedinBtn')) {
+					$(this).find('a.linkedinBtn').attr('href', linkedInLoadUrl);
+					loadCounts(linkedInJsonUrl, 'jsonp', function (data) {
+						showCount($linkedinCount, data.count);
+						showTotal(data.count);
+					});
+
+				}
+				if (links.hasClass('googleBtn')) {
+					$(this).find('a.googleBtn').attr('href', googlePlusLoadUrl);
+					loadCounts(googlePlusJsonUrl, 'jsonp', function (data) {
+						showCount($googleCount, data.shares.google);
+						showTotal(data.shares.google);
+					});
+
+				}
+			}
+		});
 	};
 
 	$.fn.customShareCount.defaults = {
@@ -149,6 +111,7 @@
 		twitterUsername: '',
 		showCounts: true,
 		showTotal: true,
+		singlePage: true,
 
 		// set the page url you want to get the counts from
 		pageUrl:  $thisUrl
