@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Custom Share Buttons Demo</title>
+    <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+	<h1>Example: Blogroll showing the total number of shares for each outbound link</h1>
+        <div class="share-items" title="blue">
+			<h2>Blog Post One</h2>
+			<p>Bacon ipsum dolor amet venison turducken brisket ball tip sausage beef beef ribs ham. Pork chop pig landjaeger ground round, swine porchetta boudin beef pork t-bone turducken cow rump. Shank ham hock ham, cupim salami rump pork kevin corned beef landjaeger shankle strip steak bresaola prosciutto capicola. Salami pig jerky ham hock pork loin pastrami. Tail cow beef ribs, sausage tenderloin jowl rump kielbasa landjaeger tongue short ribs. Corned beef boudin shank shoulder swine pancetta porchetta ham hock brisket.</p>
+			<a class="share-url" href="http://www.google.com">Read More...</a>
+        	<strong>TOTAL SHARES FOR THIS ARTICLE</strong>
+        	<ul class="share-links">
+				<li>
+					<span class="total-count"></span>
+				</li>
+        	</ul>
+        </div>
+		<div class="share-items" title="aqua">
+			<h2>Blog Post Two</h2>
+			<p>Bacon ipsum dolor amet venison turducken brisket ball tip sausage beef beef ribs ham. Pork chop pig landjaeger ground round, swine porchetta boudin beef pork t-bone turducken cow rump. Shank ham hock ham, cupim salami rump pork kevin corned beef landjaeger shankle strip steak bresaola prosciutto capicola. Salami pig jerky ham hock pork loin pastrami. Tail cow beef ribs, sausage tenderloin jowl rump kielbasa landjaeger tongue short ribs. Corned beef boudin shank shoulder swine pancetta porchetta ham hock brisket.</p>
+			<a class="share-url" href="http://www.twitter.com">Read More...</a>
+			<strong>TOTAL SHARES FOR THIS ARTICLE</strong>
+			<ul class="share-links">
+				<li>
+					<span class="total-count"></span>
+				</li>
+			</ul>
+		</div>
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+		<script src="js/customShareCounts.min.js"></script>
+		<script>
+				$('.share-items').customShareCount({
+					// in order to get twitter counts & totals you must sign up for a free account @ https://opensharecount.com/
+					twitter: true,
+
+					facebook: true,
+					linkedin: true,
+					google: true,
+
+					// the twitter username you want to append to your share, leave blank for none;
+					twitterUsername: 'davodey',
+
+					// shows the counts on buttons
+					showCounts: false,
+
+					// shows the total of all the shares
+					showTotal: true,
+
+					// set to true, if you want to get info for a blogroll / list of links
+					// set to false if you want to get info for the current page/post
+					blogRoll: true
+				});
+		</script>
+    </body>
+</html>

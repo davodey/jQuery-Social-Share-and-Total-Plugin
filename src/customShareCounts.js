@@ -3,12 +3,12 @@
 
 	$.fn.customShareCount = function( options ) {
 		var settings = $.extend({}, $.fn.customShareCount.defaults, options);
-		function loadCounts(url, type, jsonUrl, callback) {
+		function loadCounts(url, jsonUrl, callback) {
 			$.ajax({
 				url: url,
 				cache: true,
 				type: 'POST',
-				dataType: type,
+				dataType: 'jsonp',
 				data: {
 					url: jsonUrl
 				},
@@ -30,6 +30,7 @@
 		}
 		
 		this.on('click', 'a', function () {
+			console.log(this.href);
 			window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 			return false;
 		});
@@ -43,8 +44,7 @@
 				$thisUrl = $(location).attr('href');
 			}
 
-			var links = $(this).find('a'),
-				$twitterCount = $(this).find('.twitter-count'),
+			var $twitterCount = $(this).find('.twitter-count'),
 				$facebookCount = $(this).find('.facebook-count'),
 				$linkedinCount = $(this).find('.linkedin-count'),
 				$googleCount = $(this).find('.google-count'),
@@ -62,7 +62,7 @@
 
 			if (settings.twitter === true) {
 				$(this).find('a.twitterBtn').attr('href', twitterLoadUrl);
-				loadCounts(twitterJsonUrl, 'json', $thisUrl, function (data) {
+				loadCounts(twitterJsonUrl, $thisUrl, function (data) {
 					showCount($twitterCount, data.count);
 					if (settings.showTotal === true && isNaN(data.count) === false) {
 						totalCount += data.count;
@@ -73,7 +73,7 @@
 			}
 			if (settings.facebook === true) {
 				$(this).find('a.facebookBtn').attr('href', facebookLoadUrl);
-				loadCounts(facebookJsonUrl, 'jsonp', $thisUrl, function (data) {
+				loadCounts(facebookJsonUrl, $thisUrl, function (data) {
 					showCount($facebookCount, data.shares);
 					if (settings.showTotal === true && isNaN(data.shares) === false) {
 						totalCount += data.shares;
@@ -84,7 +84,7 @@
 			}
 			if (settings.linkedin === true) {
 				$(this).find('a.linkedinBtn').attr('href', linkedInLoadUrl);
-				loadCounts(linkedInJsonUrl, 'jsonp', $thisUrl, function (data) {
+				loadCounts(linkedInJsonUrl, $thisUrl, function (data) {
 					showCount($linkedinCount, data.count);
 					if (settings.showTotal === true && isNaN(data.count) === false) {
 						totalCount += data.count;
@@ -95,7 +95,7 @@
 			}
 			if (settings.google === true) {
 				$(this).find('a.googleBtn').attr('href', googlePlusLoadUrl);
-				loadCounts(googlePlusJsonUrl, 'jsonp', $thisUrl, function (data) {
+				loadCounts(googlePlusJsonUrl, $thisUrl, function (data) {
 					showCount($googleCount, data.shares.google);
 					if (settings.showTotal === true && isNaN(data.shares.google) === false){
 						totalCount += data.shares.google;
