@@ -9,8 +9,9 @@
     </head>
     <body>
         <div class="share-items" title="blue">
-			<h1>Blog 1</h1>
-			<a class="share-url" href="http://www.google.com">blog 1</a>
+			<h1>Blog Post One</h1>
+			<p>Bacon ipsum dolor amet venison turducken brisket ball tip sausage beef beef ribs ham. Pork chop pig landjaeger ground round, swine porchetta boudin beef pork t-bone turducken cow rump. Shank ham hock ham, cupim salami rump pork kevin corned beef landjaeger shankle strip steak bresaola prosciutto capicola. Salami pig jerky ham hock pork loin pastrami. Tail cow beef ribs, sausage tenderloin jowl rump kielbasa landjaeger tongue short ribs. Corned beef boudin shank shoulder swine pancetta porchetta ham hock brisket.</p>
+			<a class="share-url" href="http://www.google.com">Read More...</a>
         	<strong>SHARE THIS ARTICLE</strong>
         	<ul class="share-links">
         		<li>
@@ -38,14 +39,15 @@
                     </a>
         		</li>
 				<li>
-						<span>Total</span>
-						<span class="total-count"></span>
+					<span>Total</span>
+					<span class="total-count"></span>
 				</li>
         	</ul>
         </div>
 		<div class="share-items" title="aqua">
-			<h1>Blog 2</h1>
-			<a class="share-url" href="http://www.twitter.com">blog 2</a>
+			<h1>Blog Post Two</h1>
+			<p>Bacon ipsum dolor amet venison turducken brisket ball tip sausage beef beef ribs ham. Pork chop pig landjaeger ground round, swine porchetta boudin beef pork t-bone turducken cow rump. Shank ham hock ham, cupim salami rump pork kevin corned beef landjaeger shankle strip steak bresaola prosciutto capicola. Salami pig jerky ham hock pork loin pastrami. Tail cow beef ribs, sausage tenderloin jowl rump kielbasa landjaeger tongue short ribs. Corned beef boudin shank shoulder swine pancetta porchetta ham hock brisket.</p>
+			<a class="share-url" href="http://www.twitter.com">Read More...</a>
 			<strong>SHARE THIS ARTICLE</strong>
 			<ul class="share-links">
 				<li>
@@ -82,8 +84,25 @@
         <script src="customShareCounts.js"></script>
 		<script>
 				$('.share-items').customShareCount({
+					// in order to get twitter counts & totals you must sign up for a free account @ https://opensharecount.com/
+					twitter: true,
+
+					facebook: true,
+					linkedin: true,
+					google: true,
+
 					// the twitter username you want to append to your share, leave blank for none;
-					twitterUsername: 'davodey'
+					twitterUsername: 'davodey',
+
+					// shows the counts on buttons
+					showCounts: true,
+
+					// shows the total of all the shares
+					showTotal: true,
+
+					// set to true, if you want to get info for a blogroll / list of links
+					// set to false if you want to get info for the current page/post
+					blogRoll: true
 				});
 		</script>
     </body>

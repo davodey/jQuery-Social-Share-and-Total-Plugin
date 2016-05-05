@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Custom Share Buttons Demo</title>
+    <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="share-items" title="blue">
+			<h1>Blog 1</h1>
+			<p>Bacon ipsum dolor amet venison turducken brisket ball tip sausage beef beef ribs ham. Pork chop pig landjaeger ground round, swine porchetta boudin beef pork t-bone turducken cow rump. Shank ham hock ham, cupim salami rump pork kevin corned beef landjaeger shankle strip steak bresaola prosciutto capicola. Salami pig jerky ham hock pork loin pastrami. Tail cow beef ribs, sausage tenderloin jowl rump kielbasa landjaeger tongue short ribs. Corned beef boudin shank shoulder swine pancetta porchetta ham hock brisket.</p>
+			<p>Hamburger shankle filet mignon turkey flank spare ribs. Bresaola pastrami tri-tip chicken. Meatball andouille tenderloin sirloin rump swine shank turducken corned beef ribeye strip steak beef ribs fatback flank. Pancetta venison jowl leberkas, sirloin fatback pork shankle filet mignon corned beef turducken flank.</p>
+
+			<p>Brisket porchetta frankfurter boudin sausage ground round drumstick bresaola tongue swine ribeye corned beef venison cupim shank. Ground round tongue capicola brisket, t-bone turducken drumstick. Shankle shoulder ham hamburger fatback meatball cupim flank turkey. Picanha pig cupim ribeye tongue rump shankle short ribs jowl ham brisket sirloin pork belly. Capicola pastrami hamburger ribeye kielbasa alcatra.</p>
+
+			<p>Short loin pork pork chop sausage porchetta. Ribeye turducken biltong cupim. T-bone andouille beef ribs, meatball shankle cow flank short loin. Boudin shankle doner ground round, swine turducken landjaeger pork cupim bacon pancetta tail picanha. Salami swine corned beef frankfurter ribeye pancetta. Ham pork chop pork, fatback flank bacon beef biltong alcatra tenderloin prosciutto sausage brisket beef ribs ball tip.</p>
+
+        	<strong>SHARE THIS ARTICLE</strong>
+        	<ul class="share-links">
+        		<li>
+        			<a class="twitterBtn" data-dir="left" href="" >
+            			<span>Twitter</span>
+            			<span class="twitter-count"></span>
+                    </a>
+        		</li>
+        		<li>
+        			<a class="facebookBtn" href="">
+            			<span>Facebook</span>
+            			<span class="facebook-count"></span>
+                    </a>
+        		</li>
+        		<li>
+        			<a class="linkedinBtn" href="">
+            			<span>LinkedIn</span>
+            			<span class="linkedin-count"></span>
+                    </a>
+        		</li>
+        		<li>
+        			<a class="googleBtn" href="">
+            			<span>Google</span>
+            			<span class="google-count"></span>
+                    </a>
+        		</li>
+				<li>
+					<span>Total</span>
+					<span class="total-count"></span>
+				</li>
+        	</ul>
+        </div>
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+        <script src="customShareCounts.js"></script>
+		<script>
+			$('.share-items').customShareCount({
+
+				// in order to get twitter counts & totals you must sign up for a free account @ https://opensharecount.com/
+				twitter: true,
+				facebook: true,
+				linkedin: true,
+				google: true,
+
+				// the twitter username you want to append to your share, leave blank for none;
+				twitterUsername: 'davodey',
+
+				// shows the counts on buttons
+				showCounts: true,
+
+				// shows the total of all the shares
+				showTotal: true,
+
+				// set to true, if you want to get info for a blogroll / list of links
+				// set to false if you want to get info for the current page/post
+				blogRoll: false
+			});
+		</script>
+    </body>
+</html>
