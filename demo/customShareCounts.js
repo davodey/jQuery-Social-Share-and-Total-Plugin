@@ -1,29 +1,26 @@
 (function ($) {
 	'use strict';
-	var $thisUrl = $(location).attr('href');
 
 	$.fn.customShareCount = function( options ) {
-		var totalCount = 0,
-			$numInstances = $(this).length,
-			$totalCount = $(this).find('.total-count'),
-			$twitterCount = $(this).find('.twitter-count'),
-			$facebookCount = $(this).find('.facebook-count'),
-			$linkedinCount = $(this).find('.linkedin-count'),
-			$googleCount = $(this).find('.google-count'),
-			settings = $.extend({}, $.fn.customShareCount.defaults, options);
+		var settings = $.extend({}, $.fn.customShareCount.defaults, options);
+
+		function SocialNetwork(name, count) {
+			this.name = name;
+			this.count = count;
+		}
 
 		function kFormatter(num) {
 			return num > 999 ? (num/1000).toFixed(1) + 'k' : num;
 		}
 
-		function loadCounts(url, type, callback) {
+		function loadCounts(url, type, jsonUrl, callback) {
 			$.ajax({
 				url: url,
 				cache: true,
 				type: 'POST',
 				dataType: type,
 				data: {
-					url: settings.pageUrl
+					url: jsonUrl
 				},
 				success: function (data){
 					callback(data);
@@ -31,14 +28,7 @@
 			});
 		}
 
-		function showTotal(value) {
-			if (settings.showTotal === true && isNaN(null) !== true) {
-				totalCount += value;
-			} else {
-				$totalCount.remove();
-			}
-			$totalCount.text(kFormatter(totalCount / $numInstances));
-		}
+
 
 		function showCount (target, value) {
 			if (settings.showCounts === true) {
@@ -48,73 +38,100 @@
 			}
 		}
 
-		this.on('click', 'a', function () {
-			window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
-			return false;
-		});
+		// this.on('click', 'a', function () {
+		// 	window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+		// 	return false;
+		// });
 
 		return this.each(function(){
-
 			var links = $(this).find('a'),
+				$thisUrl = $(this).find('a.share-url').attr('href'),
 				$thisTitle = $(document).find('title').text(),
+				$twitterCount = $(this).find('.twitter-count'),
+				$facebookCount = $(this).find('.facebook-count'),
+				$linkedinCount = $(this).find('.linkedin-count'),
+				$googleCount = $(this).find('.google-count'),
+				$totalCount = $(this).find('.total-count'),
 				twitterLoadUrl = 'http://twitter.com/intent/tweet?text='+ $thisTitle + '&amp;via=' + settings.twitterUsername,
-				twitterJsonUrl = 'http://opensharecount.com/count.json?url=' + settings.pageUrl,
-				facebookLoadUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(settings.pageUrl),
-				facebookJsonUrl = 'http://graph.facebook.com/?id=' + settings.pageUrl,
-				linkedInLoadUrl = 'http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(settings.pageUrl),
-				linkedInJsonUrl = 'https://www.linkedin.com/countserv/count/share?url=' + settings.pageUrl,
-				googlePlusLoadUrl = 'https://plus.google.com/share?url=' + encodeURIComponent(settings.pageUrl),
-				googlePlusJsonUrl = 'https://count.donreach.com/';
+				twitterJsonUrl = 'http://opensharecount.com/count.json?url=' + $thisUrl,
+				facebookLoadUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent($thisUrl),
+				facebookJsonUrl = 'http://graph.facebook.com/?id=' + $thisUrl,
+				linkedInLoadUrl = 'http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent($thisUrl),
+				linkedInJsonUrl = 'https://www.linkedin.com/countserv/count/share?url=' + $thisUrl,
+				googlePlusLoadUrl = 'https://plus.google.com/share?url=' + encodeURIComponent($thisUrl),
+				googlePlusJsonUrl = 'https://count.donreach.com/',
+				totalCount = 0;
 
-			if (settings.singlePage === true) {
 
 				if (links.hasClass('twitterBtn')) {
 					$(this).find('a.twitterBtn').attr('href', twitterLoadUrl);
-					loadCounts(twitterJsonUrl, 'json', function (data) {
-						showCount($twitterCount, data.count);
-						showTotal(data.count);
+					loadCounts(twitterJsonUrl, 'json', $thisUrl, function (data) {
+						var Twitter = new SocialNetwork(
+							'twitter',
+							data.count
+
+						);
+						showCount($twitterCount, Twitter.count);
+						totalCount += Twitter.count;
+						$totalCount.text(kFormatter(totalCount));
 					});
 
 				}
 				if (links.hasClass('facebookBtn')) {
 					$(this).find('a.facebookBtn').attr('href', facebookLoadUrl);
-					loadCounts(facebookJsonUrl, 'jsonp', function (data) {
-						showCount($facebookCount, data.shares);
-						showTotal(data.shares);
+					loadCounts(facebookJsonUrl, 'jsonp', $thisUrl, function (data) {
+						var Facebook = new SocialNetwork(
+							'facebook',
+							data.shares
+						);
+						showCount($facebookCount, Facebook.count);
+						totalCount += Facebook.count;
+						$totalCount.text(kFormatter(totalCount));
 					});
 
 				}
 				if (links.hasClass('linkedinBtn')) {
 					$(this).find('a.linkedinBtn').attr('href', linkedInLoadUrl);
-					loadCounts(linkedInJsonUrl, 'jsonp', function (data) {
-						showCount($linkedinCount, data.count);
-						showTotal(data.count);
+					loadCounts(linkedInJsonUrl, 'jsonp', $thisUrl, function (data) {
+						var Linkedin = new SocialNetwork(
+							'linkedIn',
+							data.count
+						);
+						showCount($linkedinCount, Linkedin.count);
+						totalCount += Linkedin.count;
+						$totalCount.text(kFormatter(totalCount));
 					});
 
 				}
 				if (links.hasClass('googleBtn')) {
 					$(this).find('a.googleBtn').attr('href', googlePlusLoadUrl);
-					loadCounts(googlePlusJsonUrl, 'jsonp', function (data) {
-						showCount($googleCount, data.shares.google);
-						showTotal(data.shares.google);
+					loadCounts(googlePlusJsonUrl, 'jsonp', $thisUrl, function (data) {
+						var Google = new SocialNetwork(
+							'google',
+							data.shares.google
+						);
+						showCount($googleCount, Google.count);
+						totalCount += Google.count;
+						$totalCount.text(kFormatter(totalCount));
 					});
 
 				}
-			}
+
+
 		});
 	};
 
 	$.fn.customShareCount.defaults = {
+
 		// set true or false to toggle the counts & API calls
 		// in order to get twitter counts you must sign up for a free account @ https://opensharecount.com/
 
 		twitterUsername: '',
 		showCounts: true,
 		showTotal: true,
-		singlePage: true,
+		singlePage: true
 
 		// set the page url you want to get the counts from
-		pageUrl:  $thisUrl
 	};
 
 }(jQuery));
