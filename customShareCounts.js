@@ -72,7 +72,6 @@
 				googlePlusJsonUrl = 'https://count.donreach.com/',
 				totalCount = 0;
 
-			console.log($thisUrl);
 			if (settings.twitter === true) {
 				$(this).find('a.twitterBtn').attr('href', twitterLoadUrl);
 				loadCounts(twitterJsonUrl, $thisUrl, function (data) {
