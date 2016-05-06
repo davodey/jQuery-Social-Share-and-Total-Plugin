@@ -1,3 +1,19 @@
+/*
+ The MIT License (MIT)
+
+ Copyright (c) <year> <copyright holders>
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+
+ Author: David O'Dey
+ Website: http://www.davidodey.com
+ Version: 1.1
+
+ */
 (function ($) {
 	'use strict';
 
@@ -24,33 +40,29 @@
 		function showCount (target, value) {
 			if (settings.showCounts === true) {
 				target.text(formatK(value));
+				if (value === undefined) {
+					target.text(0);
+				}
 			} else {
 				target.remove();
 			}
 		}
 		
 		this.on('click', 'a', function () {
-			console.log(this.href);
 			window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 			return false;
 		});
 		
 		return this.each(function(){
-			var $thisUrl;
-
-			if (settings.blogRoll === true){
-				$thisUrl = $(this).find('a.share-url').attr('href');
-			} else {
-				$thisUrl = $(location).attr('href');
-			}
-
 			var $twitterCount = $(this).find('.twitter-count'),
 				$facebookCount = $(this).find('.facebook-count'),
 				$linkedinCount = $(this).find('.linkedin-count'),
 				$googleCount = $(this).find('.google-count'),
 				$totalCount = $(this).find('.total-count'),
-				$thisTitle = $(document).find('title').text(),
-				twitterLoadUrl = 'http://twitter.com/intent/tweet?text='+ $thisTitle + ' ' + $thisUrl + '&amp;via=' + settings.twitterUsername,
+				$thisUrl = $(this).attr('data-url'),
+				$thisTitle = $(this).attr('data-title'),
+				$twitterHash = $(this).attr('data-hash'),
+				twitterLoadUrl = 'http://twitter.com/intent/tweet?text='+ $thisTitle + ' ' + $thisUrl + '&amp;via=' + settings.twitterUsername + ' %23' + $twitterHash + '&amp;source=webclient',
 				twitterJsonUrl = 'http://opensharecount.com/count.json?url=' + $thisUrl,
 				facebookLoadUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent($thisUrl),
 				facebookJsonUrl = 'http://graph.facebook.com/?id=' + $thisUrl,
@@ -60,6 +72,7 @@
 				googlePlusJsonUrl = 'https://count.donreach.com/',
 				totalCount = 0;
 
+			console.log($thisUrl);
 			if (settings.twitter === true) {
 				$(this).find('a.twitterBtn').attr('href', twitterLoadUrl);
 				loadCounts(twitterJsonUrl, $thisUrl, function (data) {

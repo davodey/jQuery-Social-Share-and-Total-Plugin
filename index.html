@@ -8,8 +8,7 @@
     <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-	<h1>Example: Post page with share links and a share total for that page</h1>
-        <div class="share-items" title="blue">
+        <div class="share-items" data-title="title to share" data-hash="test" data-url="http://facebook.com">
 			<h2>Blog 1</h2>
 			<p>Bacon ipsum dolor amet venison turducken brisket ball tip sausage beef beef ribs ham. Pork chop pig landjaeger ground round, swine porchetta boudin beef pork t-bone turducken cow rump. Shank ham hock ham, cupim salami rump pork kevin corned beef landjaeger shankle strip steak bresaola prosciutto capicola. Salami pig jerky ham hock pork loin pastrami. Tail cow beef ribs, sausage tenderloin jowl rump kielbasa landjaeger tongue short ribs. Corned beef boudin shank shoulder swine pancetta porchetta ham hock brisket.</p>
 			<p>Hamburger shankle filet mignon turkey flank spare ribs. Bresaola pastrami tri-tip chicken. Meatball andouille tenderloin sirloin rump swine shank turducken corned beef ribeye strip steak beef ribs fatback flank. Pancetta venison jowl leberkas, sirloin fatback pork shankle filet mignon corned beef turducken flank.</p>
@@ -51,7 +50,7 @@
         	</ul>
         </div>
         <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
-		<script src="js/customShareCounts.min.js"></script>
+		<script src="customShareCounts.js"></script>
 		<script>
 			$('.share-items').customShareCount({
 
@@ -65,7 +64,7 @@
 				twitterUsername: 'davodey',
 
 				// shows the counts on buttons
-				showCounts: false,
+				showCounts: true,
 
 				// shows the total of all the shares
 				showTotal: true,
