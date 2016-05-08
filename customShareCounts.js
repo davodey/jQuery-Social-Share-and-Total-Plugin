@@ -11,6 +11,14 @@
 	$.fn.customShareCount = function( options ) {
 		var settings = $.extend({}, $.fn.customShareCount.defaults, options);
 
+		function checkUndefined (x) {
+			if (x === undefined) {
+				return x = 0;
+			} else {
+				return x;
+			}
+		}
+
 		this.on('click', 'a', function () {
 			window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 			return false;
@@ -57,13 +65,6 @@
 				},
 				total: function (){
 					if (settings.showTotal === true ){
-						function checkUndefined (x) {
-							if (x === undefined) {
-								return x = 0;
-							} else {
-								return x;
-							}
-						}
 						$totalCount.text(network.convertK(
 							  checkUndefined(ftotalCount)
 							+ checkUndefined(ltotalCount)
