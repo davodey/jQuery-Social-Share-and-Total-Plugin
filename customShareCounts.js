@@ -45,7 +45,11 @@
 								url: url
 							},
 							success: function (data){
-								target.text(network.convertK(data[item]));
+								if (data[item] === undefined) {
+									target.text(network.convertK(0));
+								} else {
+									target.text(network.convertK(data[item]));
+								}
 								callback(data);
 							}
 						});
@@ -53,7 +57,19 @@
 				},
 				total: function (){
 					if (settings.showTotal === true ){
-						$totalCount.text(network.convertK(ltotalCount + ftotalCount + ttotalCount + gtotalCount));
+						function checkUndefined (x) {
+							if (x === undefined) {
+								return x = 0;
+							} else {
+								return x;
+							}
+						}
+						$totalCount.text(network.convertK(
+							  checkUndefined(ftotalCount)
+							+ checkUndefined(ltotalCount)
+							+ checkUndefined(ttotalCount) 
+							+ checkUndefined(gtotalCount)
+						));
 					}
 				},
 				convertK: function (num) {
