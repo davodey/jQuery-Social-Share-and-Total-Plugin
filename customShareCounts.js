@@ -1,7 +1,10 @@
 /*!
  *  Custom share counts with totals!
  *  Version: 1.0.0
- *  Author: David O'Dey - www.davidodey.com
+ *  Author: David O'Dey
+ *  Website: www.davidodey.com
+ *  Twitter: @davodey
+ *  Github: https://github.com/davodey
  *  License: MIT http://en.wikipedia.org/wiki/MIT_License or GPLv2 http://en.wikipedia.org/wiki/GNU_General_Public_License
  */
 

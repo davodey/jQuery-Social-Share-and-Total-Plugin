@@ -7,7 +7,7 @@ a social sharing plugin that has a very light footprint, displays total counts a
 3. Linkedin
 4. Google Plus
 
-*Want more?  Reach out and let me know or if your feeling up to it, make a pull request and help out.*
+*Want more?  Reach out to me [@davodey] https://twitter.com/davodey and let me know or if your feeling up to it, make a pull request and help out.*
 
 #installation
 1. This plugin depends on jQuery, so youll want to grab a local copy or use a cdn version.
@@ -15,14 +15,18 @@ a social sharing plugin that has a very light footprint, displays total counts a
 2. Load up the min file provided: customShareCounts.min.js
 
 #how to use
-First wrap the content you want to share / get counts from with an element and give it a class of your choosing, in this example well use 'share-items'.  Include the data-tite, data-hash, and data-url.  This is what the plugin uses to gather information about the counts and what you want to share.
+First, wrap the content you want to share / get counts from with an element and give it a class of your choosing. In this example we'll use 'share-items'.  Include:
+* data-title - this your tweet content
+* data-hash - twitter hashtag.
+* data-url - The url you want to share.
+
 ```
 <div class="share-items" data-title="title you want twitter to use to share" data-hash="TwitterHashtag" data-url="http://urltogetcounts">
  {blog / article content here}
 </div>
 ```
 
-Next, if you want to display share buttons with counts, create an anchor tag and assign the following class, in this example well use twitter $('.twitterBtn'), you will also need the $('.twitter-count') class if you want to include share counts. See the examples below for Facebook, Linkedin and Google Plus.
+Next, if you want to display share buttons with counts, create an anchor tag and assign the following class. In this example well use twitter '.twitterBtn', you will also need the '.twitter-count' class if you want to include share counts. See the examples below for Facebook, Linkedin and Google Plus.
 ```
 <a Class="twitterBtn" data-dir="left" href="" >
 	<span>Twitter</span>
@@ -47,7 +51,7 @@ Next, if you want to display share buttons with counts, create an anchor tag and
 	<span class="google-count"></span>
 </a>
 ```
-Finally, if you want to include the total number of shares include an element with this class $('.total-count')
+Finally, if you want to include the total number of shares include an element with this class '.total-count'
 ```
 <span>Total</span>
 <span class="total-count"></span>
@@ -96,14 +100,16 @@ $('.share-items').customShareCount({
 	facebook: true,
 	linkedin: true,
 	google: true,
-	
+
 	// add the twitter username you want to append to your share, leave blank for none;
 	twitterUsername: 'davodey',
-	
+
 	// display the counts for each of the social networks, set this to false if you want to disable.
 	showCounts: true,
-	
+
 	// displays the total number of shares between all providers, set this to false if you want to disable
 	showTotal: true,
 });
 ```
+##Known Bugs:
+Firefox 42 + prevents calls to the facebook and linkedin api as part of their new tracking protection.  There is a planned fix in the next release.
