@@ -85,24 +85,24 @@ Your final markup should look something this:
 </div>
 ```
 ##javascript
-Now youll want to include the JS, youll want to include this at the bottom of the page before the closing </body> tag.
+Now youll want to include the JS, youll want to include this at the bottom of the page before the closing </body> tag.  See the comments below to manage the options.
 ```javascript
 $('.share-items').customShareCount({
-					// in order to get twitter counts & totals you must sign up for a free account @ https://opensharecount.com/
-					// setting these to false will prevent an API call to the service.
-					// set these to false if you dont want counts or links generated for that social network
-					twitter: true,
-					facebook: true,
-					linkedin: true,
-					google: true,
-					
-					// add the twitter username you want to append to your share, leave blank for none;
-					twitterUsername: 'davodey',
-					
-					// if you dont want to show the individual counts for the social networks set to true above, set this to false. 
-					showCounts: true,
-					
-					// toggles the total number of shares between all providers, set this to false if you dont want to see them
-					showTotal: true,
-				});
+	// in order to get twitter counts & totals you must sign up for a free account @ https://opensharecount.com/
+	// setting these to false will prevent an API call to the service.
+	// set these to false if you dont want counts or links generated for that social network
+	twitter: true,
+	facebook: true,
+	linkedin: true,
+	google: true,
+	
+	// add the twitter username you want to append to your share, leave blank for none;
+	twitterUsername: 'davodey',
+	
+	// if you dont want to show the individual counts for the social networks set to true above, set this to false. 
+	showCounts: true,
+	
+	// toggles the total number of shares between all providers, set this to false if you dont want to see them
+	showTotal: true,
+});
 ```
