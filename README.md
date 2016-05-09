@@ -3,7 +3,7 @@ Social sharing plugin that has a very light footprint, displays total counts and
 
 ##Demo 
 Click the link below for a working demo.
-<a href="http://www.davidodey.com/projects/share.html" target="_blank">Click Here for Demo</a>
+<a target="_blank" ref="http://www.davidodey.com/projects/share.html">Click Here for Demo</a>
 
 #Supported social sites:
 1. Facebook
