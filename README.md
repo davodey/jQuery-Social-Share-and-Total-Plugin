@@ -1,5 +1,4 @@
-# share-buttons-with-counts
-Gets share counts and or share totals from a specified link and displays them on your page.  Share link generation is also included if you want the ability to share your page on social media.  http://davodey.github.io/share-buttons-with-counts/index.html
+# Share Buttons With Counts & Totals
 
 #supported social sites:
 1. Facebook
@@ -22,7 +21,7 @@ First wrap the content you want to share / get counts from with an element and g
 </div>
 ```
 
-Next, if you want to include share buttons with counts, create an anchor tag and assign the same class name as below, you will also need the 'count' class if you want to include share counts. Nest a span or tag of your choosing in the with the class 'total-count'.  You will want to include this inside the wrapped div you made above.
+Next, if you want to display share buttons with counts, create an anchor tag and assign the following class, in this example well use twitter $('.twitterBtn'), you will also need the $('.twitter-count') class if you want to include share counts. See the examples below for Facebook, Linkedin and Google Plus.
 ```
 <a Class="twitterBtn" data-dir="left" href="" >
 	<span>Twitter</span>
@@ -47,7 +46,7 @@ Next, if you want to include share buttons with counts, create an anchor tag and
 	<span class="google-count"></span>
 </a>
 ```
-Finally, if you want to include the total number of shares include this block
+Finally, if you want to include the total number of shares include an element with this class $('.total-count')
 ```
 <span>Total</span>
 <span class="total-count"></span>
