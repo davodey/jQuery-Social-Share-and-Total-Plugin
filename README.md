@@ -1,13 +1,17 @@
 # jQuery Social Share and Total Plugin
 Social sharing plugin that has a very light footprint, displays total counts and individual share counts for your posts, or any other link you want to see numbers for.
 
+##Demo 
+Click the link below for a working demo.
+<a href="http://www.davidodey.com/projects/share.html target="_blank">Click Here for Demo</a>
+
 #Supported social sites:
 1. Facebook
 2. Twitter (in order to get twitter counts, youll need to register your domain to: [https://opensharecount.com/](https://opensharecount.com/))
 3. Linkedin
 4. Google Plus
 
-*Want more?  Reach out to me [@davodey] https://twitter.com/davodey and let me know or if your feeling up to it, make a pull request and help out.*
+*Want more?  Reach out to me [@davodey](https://twitter.com/davodey) and let me know or if your feeling up to it, make a pull request and help out.*
 
 #installation
 1. This plugin depends on jQuery, so youll want to grab a local copy or use a cdn version.
