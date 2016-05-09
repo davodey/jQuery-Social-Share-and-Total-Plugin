@@ -1,5 +1,5 @@
 # jQuery Share and Total Plugin
-a social sharing plugin that has a very light footprint, displays total counts and individual share counts for your posts, or any other link you want to see numbers for. 
+Social sharing plugin that has a very light footprint, displays total counts and individual share counts for your posts, or any other link you want to see numbers for.
 
 #Supported social sites:
 1. Facebook
