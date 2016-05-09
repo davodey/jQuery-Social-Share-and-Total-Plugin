@@ -99,10 +99,10 @@ $('.share-items').customShareCount({
 	// add the twitter username you want to append to your share, leave blank for none;
 	twitterUsername: 'davodey',
 	
-	// if you dont want to show the individual counts for the social networks set to true above, set this to false. 
+	// display the counts for each of the social networks, set this to false if you want to disable.
 	showCounts: true,
 	
-	// toggles the total number of shares between all providers, set this to false if you dont want to see them
+	// displays the total number of shares between all providers, set this to false if you want to disable
 	showTotal: true,
 });
 ```
