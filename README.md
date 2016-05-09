@@ -1,7 +1,7 @@
-# share buttons with counts & totals
+# jQuery Share and Total Plugin
 a social sharing plugin that has a very light footprint, displays total counts and individual share counts for your posts, or any other link you want to see numbers for. 
 
-#supported social sites:
+#Supported social sites:
 1. Facebook
 2. Twitter (in order to get twitter counts, youll need to register your domain to: [https://opensharecount.com/](https://opensharecount.com/))
 3. Linkedin
@@ -14,7 +14,7 @@ a social sharing plugin that has a very light footprint, displays total counts a
 [jQuery 1.12.3 tested and supported] https://code.jquery.com/jquery-1.12.3.min.js
 2. Load up the min file provided: customShareCounts.min.js
 
-#how to use
+#How to use
 First, wrap the content you want to share / get counts from with an element and give it a class of your choosing. In this example we'll use 'share-items'.  Include:
 * data-title - this your tweet content
 * data-hash - twitter hashtag.
@@ -58,7 +58,7 @@ Finally, if you want to include the total number of shares include an element wi
 ```
 Your final markup should look something this:
 
-##example of complete markup
+##Example of complete markup
 ```html
 <!-- the div wrapper -->
 <div class="share-items" data-title="title you want twitter to use to share" data-hash="TwitterHashtag" data-url="http://urltogetcounts">
@@ -89,7 +89,7 @@ Your final markup should look something this:
 	</div>
 </div>
 ```
-##javascript
+##Javascript
 Now youll want to include the JS, youll want to include this at the bottom of the page before the closing </body> tag.  See the comments below to manage the options.
 ```javascript
 $('.share-items').customShareCount({
