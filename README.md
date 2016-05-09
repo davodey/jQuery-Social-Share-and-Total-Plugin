@@ -1,4 +1,4 @@
-# Share Buttons With Counts & Totals
+# share buttons with counts & totals
 
 #supported social sites:
 1. Facebook
